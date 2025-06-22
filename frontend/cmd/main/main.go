@@ -9,13 +9,11 @@ import (
 )
 
 func main() {
-	go func ()  {
-		for{
-			time.Sleep(1 * time.Second)
-			fmt.Println("Hello from WebAssembly in a goroutine!")
-		}	
-	}()
-	fmt.Println("Hello from WebAssembly!")
 
-	select {} // Block forever to keep the program running
+	fmt.Println("Coipo frontend started at", time.Now().Format(time.RFC3339))
+	fmt.Println("Visit http://localhost:8080 to access the application.")
+	// Here you would typically start your web server or application logic.
+	// For example, you might use http.ListenAndServe to start a web server.
+	// This is just a placeholder for demonstration purposes.
+	select {} // Block forever
 }
