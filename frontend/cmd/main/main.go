@@ -1,31 +1,21 @@
+//go:build js && wasm
+// +build js,wasm
+
 package main
 
 import (
 	"fmt"
-	"shared/todo"
-	"syscall/js"
+	"time"
 )
 
 func main() {
+	go func ()  {
+		for{
+			time.Sleep(1 * time.Second)
+			fmt.Println("Hello from WebAssembly in a goroutine!")
+		}	
+	}()
+	fmt.Println("Hello from WebAssembly!")
 
-	c := make(chan struct{}, 0)
-
-	// Get the document object
-	document := js.Global().Get("document")
-
-	// Create a new paragraph element
-	p := document.Call("createElement", "p")
-
-	mytodo := todo.Todo{
-		ID:        "1",
-		Title:     "Learn Go",
-		Completed: false,
-	}
-
-	p.Set("textContent", fmt.Sprintf("Todo: %s, Completed: %t", mytodo.Title, mytodo.Completed))
-
-	// Append the paragraph to the body
-	document.Get("body").Call("appendChild", p)
-
-	<-c
+	select {} // Block forever to keep the program running
 }

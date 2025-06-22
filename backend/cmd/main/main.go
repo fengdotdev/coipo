@@ -19,6 +19,8 @@ func main() {
 	fileServer := http.FileServer(http.Dir(dir))
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		// this contains template the index.html, main.wasm and wasm_exec.js files
+
 		tmpPath := path.Join(dir, "index_template.html")
 
 		tmpl, err := template.ParseFiles(tmpPath)
@@ -30,7 +32,6 @@ func main() {
 			Title: "Bienvenido a mi sitio web",
 			Body:  "Este es un ejemplo de una página web servida por un servidor Go.",
 		}
-
 		err = tmpl.Execute(w, data)
 		if err != nil {
 			http.Error(w, "Error al procesar la plantilla", http.StatusInternalServerError)
